@@ -107,7 +107,7 @@ public class YunXueTangTask {
                         "视频标题 [{}]," +
                         "视频时长 [ {} ] 分钟," +
                         "开始时间 [ {} ]",i+1,map.get("title"),duration,LocalDateTime.now());
-                nextTime = LocalDateTime.now().plusMinutes(duration);
+                nextTime = LocalDateTime.now().plusMinutes(duration+2);
                 log.warn("下个视频播放时间标记[{}]",nextTime);
                 i++;
             }
