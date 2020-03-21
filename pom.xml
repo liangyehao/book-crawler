@@ -16,7 +16,10 @@
 
     <properties>
         <java.version>1.8</java.version>
+        <argLine>-Dfile.encoding=UTF-8</argLine>
     </properties>
+
+
 
     <dependencies>
         <dependency>
