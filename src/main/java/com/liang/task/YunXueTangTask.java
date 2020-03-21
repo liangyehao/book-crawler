@@ -123,6 +123,18 @@ public class YunXueTangTask {
 
     }
 
+    /**
+     * 每隔3分钟伪装访问一次任务列表防止cookie过期
+     *
+     * @throws Exception 异常
+     */
+    @Scheduled(fixedRate = 3*60*1000)
+    private void configureTasks2() throws Exception {
+        String htmlByCookie = CookieCrawlUtil.getHtmlByCookie(url, cookies);
+        String prefix = htmlByCookie.substring(0,100).trim();
+        log.warn("[{}]每隔3分钟伪装访问一次任务列表,防止cookie过期:::::[{}]",LocalDateTime.now(),prefix);
+    }
+
     public static void main(String[] args) {
         LocalTime localTime = LocalTime.now();
         LocalDate localDate = LocalDate.now();
