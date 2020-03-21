@@ -68,6 +68,9 @@ public class YunXueTangTask {
      */
     private LocalDateTime nextTime = LocalDateTime.now();
 
+    @Value("${yunxuetang.fixedRateString}")
+    private String fixedRateString;
+
 
 
 
@@ -82,6 +85,8 @@ public class YunXueTangTask {
         taskList = CookieCrawlUtil.getTaskList(url, cookies);
         log.warn("当前总任务数: {}",taskList.size());
         log.warn("当前用户[{}]",userName);
+
+        log.warn("执行频率 [{}] 毫秒",fixedRateString);
     }
 
    /**
@@ -91,7 +96,7 @@ public class YunXueTangTask {
     *     或直接指定时间间隔，例如：5秒
     *     20分钟执行一次
     * */
-    @Scheduled(fixedRate = 10*60*1000)
+    @Scheduled(fixedRateString = "${yunxuetang.fixedRateString}")
     private void configureTasks() throws Exception {
         if (LocalDateTime.now().compareTo(nextTime)>0) {
             if (i<=taskList.size()) {
