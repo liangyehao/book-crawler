@@ -117,7 +117,7 @@
             <onMismatch>DENY</onMismatch>
         </filter>
     </appender>
-    <logger name="com.liang.task.YunXueTangTask" level="warn">
+    <logger name="com.liang.task.YunXueTangTask" level="info">
         <appender-ref ref="CRAWLER"/>
     </logger>
 

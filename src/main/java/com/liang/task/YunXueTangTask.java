@@ -101,18 +101,23 @@ public class YunXueTangTask {
         if (LocalDateTime.now().compareTo(nextTime)>0) {
             if (i<=taskList.size()) {
                 Map map = taskList.get(i);
-                int duration = Integer.parseInt(map.get("minute").toString());
-                BrowserUtil.browse(browserPath,map.get("videoUrl").toString());
-                log.warn("开始学习第 [{}] 个视频," +
-                        "视频标题 [{}]," +
-                        "视频时长 [ {} ] 分钟," +
-                        "开始时间 [ {} ]",i+1,map.get("title"),duration,LocalDateTime.now());
-                nextTime = LocalDateTime.now().plusMinutes(duration+2);
-                log.warn("下个视频播放时间标记[{}]",nextTime);
+                //视频已经看完
+                if ("100%".equals(map.get("progress"))) {
+                    log.error("第[{}]个视频已看过,跳过此视频,[{}] 毫秒后播放下一个 ",i+1,fixedRateString);
+                }else{
+                    int duration = Integer.parseInt(map.get("minute").toString());
+                    BrowserUtil.browse(browserPath,map.get("videoUrl").toString());
+                    log.warn("开始学习第 [{}] 个视频," +
+                            "视频标题 [{}]," +
+                            "视频时长 [ {} ] 分钟," +
+                            "开始时间 [ {} ]",i+1,map.get("title"),duration,LocalDateTime.now());
+                    nextTime = LocalDateTime.now().plusMinutes(duration+2);
+                    log.warn("下个视频播放时间标记[{}]",nextTime);
+                }
                 i++;
             }
         }else {
-            log.error("当前时间[{}] 第 [{}] 个视频还未播放完毕,不执行定时任务,[{}]后执行...",LocalDateTime.now(),i,nextTime);
+            log.info("当前时间[{}] 第 [{}] 个视频还未播放完毕,不执行此次定时任务,[{}]毫秒后检查时间是否超过[{}]",LocalDateTime.now(),i,fixedRateString,nextTime);
         }
 
 
