@@ -1,6 +1,7 @@
 package com.liang.controller;
 
 import com.liang.utils.HtmlParseUtil;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,5 +25,10 @@ public class CrawlerController {
         String url = "https://book.douban.com/subject/"+isbn;
         Map<String, String> book = HtmlParseUtil.handleHtml(url);
         return book.toString();
+    }
+
+    @GetMapping("/hello")
+    public String test(){
+        return "hello";
     }
 }

@@ -26,14 +26,19 @@ public class CrawlUtil {
         CloseableHttpResponse response = null;
         try {
             response = httpClient.execute(httpGet);
+            //获取返回结果中的实体
+            assert response != null;
+            HttpEntity entity = response.getEntity();
+
+            return EntityUtils.toString(entity);
         } catch (IOException e) {
             e.printStackTrace();
+            return "";
+        }finally {
+            httpClient.close();
+            assert response != null;
+            response.close();
         }
 
-        //获取返回结果中的实体
-        assert response != null;
-        HttpEntity entity = response.getEntity();
-
-        return EntityUtils.toString(entity);
     }
 }

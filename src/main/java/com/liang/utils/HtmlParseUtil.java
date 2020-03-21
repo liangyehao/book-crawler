@@ -138,7 +138,7 @@ public class HtmlParseUtil {
      * @return {@link Boolean}
      */
     private static Boolean removeBrNode(Node node){
-        if (node instanceof Element && ((Element) node).tagName().equalsIgnoreCase("br") ) {
+        if (node instanceof Element && "br".equalsIgnoreCase(((Element) node).tagName()) ) {
             return true;
         }
         return false;
