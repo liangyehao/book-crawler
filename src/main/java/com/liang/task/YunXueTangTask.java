@@ -91,7 +91,7 @@ public class YunXueTangTask {
     *     或直接指定时间间隔，例如：5秒
     *     20分钟执行一次
     * */
-    @Scheduled(fixedRateString = "${yunxuetang.fixedRate}")
+    @Scheduled(fixedRate = 10*60*1000)
     private void configureTasks() throws Exception {
         if (LocalDateTime.now().compareTo(nextTime)>0) {
             if (i<=taskList.size()) {
