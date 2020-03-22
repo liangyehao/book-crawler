@@ -71,6 +71,9 @@ public class YunXueTangTask {
     @Value("${yunxuetang.fixedRate}")
     private String fixedRateString;
 
+    @Value("${yunxuetang.disguiseRate}")
+    private String disguiseRateString;
+
 
 
 
@@ -85,8 +88,8 @@ public class YunXueTangTask {
         taskList = CookieCrawlUtil.getTaskList(url, cookies);
         log.warn("当前总任务数: {}",taskList.size());
         log.warn("当前用户[{}]",userName);
-
         log.warn("执行频率 [{}] 毫秒",fixedRateString);
+        log.warn("伪装访问频率 [{}] 毫秒",disguiseRateString);
     }
 
    /**
@@ -128,11 +131,11 @@ public class YunXueTangTask {
      *
      * @throws Exception 异常
      */
-    @Scheduled(fixedRate = 3*60*1000)
+    @Scheduled(fixedRateString = "${yunxuetang.disguiseRate}")
     private void configureTasks2() throws Exception {
         String htmlByCookie = CookieCrawlUtil.getHtmlByCookie(url, cookies);
         String prefix = htmlByCookie.substring(0,100).trim();
-        log.warn("[{}]每隔3分钟伪装访问一次任务列表,防止cookie过期:::::[{}]",LocalDateTime.now(),prefix);
+        log.info("[{}]每隔3分钟伪装访问一次任务列表,防止cookie过期:::::[{}]",LocalDateTime.now(),prefix);
     }
 
     public static void main(String[] args) {
